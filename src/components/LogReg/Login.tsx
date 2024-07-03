@@ -71,7 +71,7 @@ function Login() {
                         </Col>
                         
                     </Row>
-                    <Button className="w-100 mt-3" type="submit" color="secondary">
+                    <Button style={{ backgroundColor: '#947eed' }} className="w-100 mt-3" type="submit" color="secondary">
                         Login
                     </Button>
                 </Form>

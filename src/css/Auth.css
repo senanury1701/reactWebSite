@@ -39,11 +39,11 @@
 
 .toggle-button {
     cursor: pointer;
-    color: grey;
+    color: #947eed;
     font-weight: bold;
     text-align: center;
 }
 
 .toggle-button.active {
-    color: #007bff;
+    color: #947eed;
 }
