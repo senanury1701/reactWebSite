@@ -19,8 +19,8 @@ function MyNavbar(props) {
       <Navbar {...props}>
         <NavbarBrand href="/">MyWebsite</NavbarBrand>
         <div className='d-flex mx-5'>
-          <NavLink className='mx-2' href="Login">Login</NavLink>
-          <NavLink className='mx-2' href="Register">Register</NavLink>
+          <NavLink className='mx-2' href="Auth">Login</NavLink>
+          
           <div className="d-flex">
             <UncontrolledDropdown isOpen={isOpen} toggle={toggle}>
               <DropdownToggle caret className="rounded-circle bg-transparent"></DropdownToggle>

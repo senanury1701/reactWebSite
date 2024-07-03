@@ -6,12 +6,7 @@ function Login() {
 
     const userSchema = Yup.object().shape({
         email: Yup.string().email('Enter a valid email').required('Email is required'),
-        password: Yup.string()
-            .required('Password is required').min(8)
-            .matches(
-                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.]).{6,}$/,
-                'Password must contain at least one digit, one lowercase letter, one uppercase letter, and one special character'
-            ),
+        password: Yup.string().required('Password is required'),
         name: Yup.string().required('Name is required'),
         lastName: Yup.string().required('Last Name is required'),
         confirmPassword: Yup.string()
