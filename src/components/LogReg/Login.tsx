@@ -30,7 +30,7 @@ function Login() {
     });
 
     return (
-        <div className="d-flex justify-content-center align-items-center h-100 m-5 mx-auto" style={{ maxWidth: '500px' }}>
+        <div className="d-flex justify-content-center align-items-center h-100  mx-auto" style={{ maxWidth: '500px' }}>
             <div className="login-form p-4">
                 <h2 className="text-center mb-4">Login</h2>
                 <Form onSubmit={formik.handleSubmit}>

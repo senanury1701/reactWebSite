@@ -35,7 +35,7 @@ function Register() {
     });
 
     return (
-        <div className="d-flex justify-content-center align-items-center h-100 m-5 mx-auto" style={{ maxWidth: '500px' }}>
+        <div className="d-flex justify-content-center align-items-center h-100 mx-auto" style={{ maxWidth: '500px' }}>
             <div className="login-form p-4">
                 <h2 className="text-center mb-4">Register</h2>
                 <Form onSubmit={formik.handleSubmit}>
@@ -127,7 +127,7 @@ function Register() {
                         </Col>
                     </Row>
                     <Button style={{ backgroundColor: '#947eed' }} className="w-100 mt-3" type="submit"  >
-                        Login
+                        Register
                     </Button>
                 </Form>
             </div>

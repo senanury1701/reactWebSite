@@ -14,7 +14,7 @@ function Auth() {
             </div>
             <div className="form-container p-4">
                 {isLogin ? <LoginPage /> : <RegisterPage />}
-                <div className="button-group mb-4">
+                <div className="button-group mb-4 mt-2">
                     {isLogin ? (
                         <p 
                             onClick={() => setIsLogin(false)} 
