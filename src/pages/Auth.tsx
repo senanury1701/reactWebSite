@@ -15,13 +15,14 @@ function Auth() {
     useEffect(() => {
         if (successRegister) {
             setIsLogin(true);
-            toast.success('Kayıt işlemi başarıyla tamamlandı!', {
+            toast.success('Registration completed successfully!', {
                 position: 'top-center',
                 autoClose: 3000,
             });
         }
     }, [successRegister]);
 
+    
     const toggleLoginRegister = () => {
         setIsLogin(!isLogin);
     };

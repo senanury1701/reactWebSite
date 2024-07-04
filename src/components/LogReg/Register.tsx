@@ -4,15 +4,16 @@ import { useFormik } from 'formik';
 import useAppDispatch from '/src/hooks/useAppDispatch.ts';
 import useAppSelector from '/src/hooks/useAppSelector';
 import { registerUser, resetSuccessRegister } from '/src/features/auth/authSlice';
-import { selectAuthLoading, selectAuthError, selectSuccessRegister } from '/src/features/auth/authSelectors';
+import { selectAuthLoading,  selectSuccessRegister } from '/src/features/auth/authSelectors';
 import { useEffect } from "react";
+import {  selectAuthRegister } from '../../features/auth/authSelectors';
 
 function Register() {
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectAuthLoading);
-    const error = useAppSelector(selectAuthError);
+    const errorRegister = useAppSelector(selectAuthRegister);
+
     const successRegister = useAppSelector(selectSuccessRegister);
-    
 
     useEffect(() => {
         if (successRegister) {
@@ -34,7 +35,7 @@ function Register() {
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
 
-    const onSubmit = async (values: { email: string; name: string; lastName: string; password: string; confirmPassword: string }) => {
+    const onSubmit = async (values: { email: string; name: string; lastName: string; password: string; }) => {
         await dispatch(registerUser(values));
     };
 
@@ -52,7 +53,7 @@ function Register() {
 
     return (
         <div className="d-flex justify-content-center align-items-center h-100 mx-auto" style={{ maxWidth: '500px' }}>
-            <div className="login-form p-4">
+            <div className="login-form ">
                 <h2 className="text-center mb-4">Register</h2>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row>
@@ -145,7 +146,7 @@ function Register() {
                     <Button style={{ backgroundColor: '#947eed' }} className="w-100 mt-3" type="submit" disabled={loading}>
                         {loading ? 'Registering...' : 'Register'}
                     </Button>
-                    {error && <div className='text-danger mt-3'>{error}</div>}
+                    {errorRegister  && <div className='text-danger mt-3'>{errorRegister}</div>}
                 </Form>
             </div>
         </div>

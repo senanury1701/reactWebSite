@@ -1,39 +1,45 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://localhost:3000/',
+    headers: {
+      'Content-Type': 'application/json',
+  },
 });
 
-interface RegisterData {
-    email: string;
-    password: string;
-    name: string;
-    lastName: string;
-}
 
-interface RegisterResponse {
+  interface LoginResponse {
     user: {
-        id: string;
-        name: string;
-        email: string;
+      id: string;
+      name: string;
+      email: string;
     };
-    token: string;
+    accessToken:string;
 }
 
 export const registerUser = async (userData: { email: string; name: string; lastName: string; password: string }) => {
     try {
-        const response = await api.post('/users', userData);
+        const response = await api.post('users', userData);
+        console.log(response.data);
+        
         return response.data;
     } catch (error) {
-        throw new Error('Register failed');
+        throw new Error(error.response.data);
     }
 };
 
-export const login = async (data: RegisterData): Promise<RegisterResponse> => {
+export const login = async (email: string, password: string): Promise<LoginResponse> => {
     try {
-        const response = await api.post('/login', data); 
-        return response.data;
+      const data= {
+        email : email,
+        password: password
+      }
+      const response = await api.post('login', data );
+      localStorage.setItem('accessToken', response.data.accessToken);
+      
+      return response.data;
     } catch (error) {
-        throw new Error('Login failed');
+      
+      throw new Error(error.response.data);
     }
-};
+  }
