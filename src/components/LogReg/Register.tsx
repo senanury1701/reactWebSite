@@ -1,8 +1,24 @@
 import { Form, Row, Col, FormGroup, Label, Input, Button } from 'reactstrap';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import useAppDispatch from '/src/hooks/useAppDispatch.ts';
+import useAppSelector from '/src/hooks/useAppSelector';
+import { registerUser, resetSuccessRegister } from '/src/features/auth/authSlice';
+import { selectAuthLoading, selectAuthError, selectSuccessRegister } from '/src/features/auth/authSelectors';
+import { useEffect } from "react";
 
 function Register() {
+    const dispatch = useAppDispatch();
+    const loading = useAppSelector(selectAuthLoading);
+    const error = useAppSelector(selectAuthError);
+    const successRegister = useAppSelector(selectSuccessRegister);
+    
+
+    useEffect(() => {
+        if (successRegister) {
+            dispatch(resetSuccessRegister());
+        }
+    }, [successRegister, dispatch]);
 
     const userSchema = Yup.object().shape({
         email: Yup.string().email('Enter a valid email').required('Email is required'),
@@ -15,11 +31,11 @@ function Register() {
         name: Yup.string().required('Name is required'),
         lastName: Yup.string().required('Last Name is required'),
         confirmPassword: Yup.string().required()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
 
-    const onSubmit = (values) => {
-        console.log(values);
+    const onSubmit = async (values: { email: string; name: string; lastName: string; password: string; confirmPassword: string }) => {
+        await dispatch(registerUser(values));
     };
 
     const formik = useFormik({
@@ -50,7 +66,7 @@ function Register() {
                                     id="email"
                                     name="email"
                                     placeholder="example@example.com"
-                                    
+                                    type="email" // Specify input type as email
                                 />
                                 {formik.touched.email && formik.errors.email ? (
                                     <div className='text-danger'>{formik.errors.email}</div>
@@ -126,9 +142,10 @@ function Register() {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Button style={{ backgroundColor: '#947eed' }} className="w-100 mt-3" type="submit"  >
-                        Register
+                    <Button style={{ backgroundColor: '#947eed' }} className="w-100 mt-3" type="submit" disabled={loading}>
+                        {loading ? 'Registering...' : 'Register'}
                     </Button>
+                    {error && <div className='text-danger mt-3'>{error}</div>}
                 </Form>
             </div>
         </div>

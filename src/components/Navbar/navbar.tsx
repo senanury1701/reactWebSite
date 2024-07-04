@@ -29,7 +29,7 @@ function MyNavbar(props) {
                 <DropdownItem divider />
                 <DropdownItem>Foo Action</DropdownItem>
                 <DropdownItem>Bar Action</DropdownItem>
-                <DropdownItem>Quo Action</DropdownItem>
+                <DropdownItem>Logout</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
