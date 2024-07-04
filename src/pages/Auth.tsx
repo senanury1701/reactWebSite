@@ -22,7 +22,6 @@ function Auth() {
         }
     }, [successRegister]);
 
-    
     const toggleLoginRegister = () => {
         setIsLogin(!isLogin);
     };

@@ -14,7 +14,7 @@ interface AuthState {
     error: string | null;
     errorRegiste: string | null;
     successRegister: boolean;
-    isAuthenticated: boolean;
+    
 }
 
 const initialState: AuthState = {
@@ -23,8 +23,9 @@ const initialState: AuthState = {
     error: null,
     errorRegiste: null,
     successRegister: false,
-    isAuthenticated: false,
+    
 };
+
 
 
 export const registerUser = createAsyncThunk(
@@ -66,7 +67,7 @@ const authSlice = createSlice({
         loginSuccess(state, action: PayloadAction<User>) {
           state.loading = false;
           state.user = action.payload;
-          state.isAuthenticated = true;
+         
         },
         loginFailure(state, action: PayloadAction<string>) {
           state.loading = false;
@@ -76,7 +77,7 @@ const authSlice = createSlice({
             state.user = null;
             state.loading = false;
             state.error = null;
-            state.isAuthenticated = false;
+            
         },
     },
     

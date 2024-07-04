@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector, } from 'react-redux';
 import { login  } from '../../features/auth/authSlice';
-import { selectAuthLoading, selectAuthError } from '../../features/auth/authSelectors';
+import { selectAuthLoading, selectAuthError  } from '../../features/auth/authSelectors';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -15,7 +15,7 @@ function Login() {
   const dispatch = useDispatch();
   const loading = useSelector(selectAuthLoading);
   const error = useSelector(selectAuthError);
-  
+
   const formik = useFormik({
     initialValues: {
       email: '',
