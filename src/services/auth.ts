@@ -19,9 +19,7 @@ const api = axios.create({
 
 export const registerUser = async (userData: { email: string; name: string; lastName: string; password: string }) => {
     try {
-        const response = await api.post('users', userData);
-        console.log(response.data);
-        
+        const response = await api.post('users', userData);       
         return response.data;
     } catch (error) {
         throw new Error(error.response.data);
@@ -43,3 +41,14 @@ export const login = async (email: string, password: string): Promise<LoginRespo
       throw new Error(error.response.data);
     }
   }
+
+export const logout = async () => {
+  try {
+    const response = await api.post('logout');
+    localStorage.removeItem('accessToken');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data);
+  }
+};
+

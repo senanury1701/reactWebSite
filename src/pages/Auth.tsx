@@ -8,19 +8,24 @@ import { selectSuccessRegister } from '/src/features/auth/authSelectors';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 function Auth() {
     const [isLogin, setIsLogin] = useState(true);
     const successRegister = useAppSelector(selectSuccessRegister);
+
 
     useEffect(() => {
         if (successRegister) {
             setIsLogin(true);
             toast.success('Registration completed successfully!', {
-                position: 'top-center',
+                position: 'top-right',
                 autoClose: 3000,
             });
         }
     }, [successRegister]);
+
+
 
     const toggleLoginRegister = () => {
         setIsLogin(!isLogin);

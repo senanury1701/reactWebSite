@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 import { Form, Row, Col, FormGroup, Label, Input, Button } from 'reactstrap';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector, } from 'react-redux';
 import { login  } from '../../features/auth/authSlice';
-import { selectAuthLoading, selectAuthError  } from '../../features/auth/authSelectors';
+import { selectAuthLoading, selectAuthError, selectIsAuthenticated } from '../../features/auth/authSelectors';
+import { useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
+import { checkAuthState } from '../../features/auth/authSlice.ts';
+
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -15,6 +20,8 @@ function Login() {
   const dispatch = useDispatch();
   const loading = useSelector(selectAuthLoading);
   const error = useSelector(selectAuthError);
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -23,17 +30,30 @@ function Login() {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      try {     
+      try { 
         await dispatch(login(values.email, values.password));
+        dispatch(checkAuthState());
       } catch (error) {
         console.error('Login error:', error);
       }
     },
   });
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success('Login completed successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      navigate('/profile');
+    }
+  }, [isAuthenticated, navigate]);
+  
+
 
   return (
     <div className="d-flex justify-content-center align-items-center h-100 mx-auto" style={{ maxWidth: '500px' }}>
+      <ToastContainer />
       <div className="login-form ">
         <h2 className="text-center mb-4">Login</h2>
         <Form onSubmit={formik.handleSubmit}>

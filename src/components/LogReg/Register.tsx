@@ -12,7 +12,6 @@ function Register() {
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectAuthLoading);
     const errorRegister = useAppSelector(selectAuthRegister);
-
     const successRegister = useAppSelector(selectSuccessRegister);
 
     useEffect(() => {
@@ -67,7 +66,7 @@ function Register() {
                                     id="email"
                                     name="email"
                                     placeholder="example@example.com"
-                                    type="email" // Specify input type as email
+                                    type="email"
                                 />
                                 {formik.touched.email && formik.errors.email ? (
                                     <div className='text-danger'>{formik.errors.email}</div>
